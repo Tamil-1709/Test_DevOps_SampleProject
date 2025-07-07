@@ -10,13 +10,13 @@ pipeline {
 
         stage('Install SQLFluff') {
             steps {
-                sh 'pip install sqlfluff'
+                bat 'pip install sqlfluff'
             }
         }
 
         stage('Lint SQL Files') {
             steps {
-                sh 'sqlfluff lint ./SQL'
+                bat 'sqlfluff lint .\\SQL'
             }
         }
     }
@@ -27,3 +27,4 @@ pipeline {
         }
     }
 }
+
