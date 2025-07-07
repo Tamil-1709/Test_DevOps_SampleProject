@@ -2,9 +2,9 @@ pipeline {
     agent any
 
     stages {
-        stage('Clone Repo') {
+        stage('Checkout Code') {
             steps {
-                git 'https://github.com/Tamil-1709/Test_DevOps_SampleProject.git'
+                checkout scm
             }
         }
 
@@ -16,7 +16,15 @@ pipeline {
 
         stage('Lint SQL Files') {
             steps {
-                bat 'sqlfluff lint .\\SQL'
+                // Lint files, output HTML report
+                bat 'sqlfluff lint .\\SQL --format html --output-file sqlfluff_report.html'
+            }
+        }
+
+        stage('Archive Report') {
+            steps {
+                // Save the report in Jenkins UI
+                archiveArtifacts artifacts: 'sqlfluff_report.html', allowEmptyArchive: true
             }
         }
     }
@@ -27,4 +35,3 @@ pipeline {
         }
     }
 }
-
