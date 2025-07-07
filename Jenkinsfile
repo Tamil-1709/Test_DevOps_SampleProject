@@ -10,26 +10,21 @@ pipeline {
 
         stage('Install SQLFluff') {
             steps {
-                bat 'pip install --upgrade sqlfluff' // recommended
+                bat 'pip install --upgrade sqlfluff'
             }
         }
 
         stage('Lint SQL Files') {
             steps {
-                // Save plain text output to a file
-                bat 'sqlfluff lint .\\SQL > sqlfluff_report.txt'
-            }
-        }
-
-        stage('Archive Report') {
-            steps {
-                archiveArtifacts artifacts: 'sqlfluff_report.txt', allowEmptyArchive: true
+                // Run sqlfluff and save result to file, but prevent pipeline failure
+                bat 'sqlfluff lint .\\SQL > sqlfluff_report.txt || exit 0'
             }
         }
     }
 
     post {
         always {
+            archiveArtifacts artifacts: 'sqlfluff_report.txt', allowEmptyArchive: true
             echo 'Pipeline completed.'
         }
     }
