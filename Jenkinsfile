@@ -10,21 +10,20 @@ pipeline {
 
         stage('Install SQLFluff') {
             steps {
-                bat 'pip install sqlfluff'
+                bat 'pip install --upgrade sqlfluff' // recommended
             }
         }
 
         stage('Lint SQL Files') {
             steps {
-                // Lint files, output HTML report
-                bat 'sqlfluff lint .\\SQL --format html --output-file sqlfluff_report.html'
+                // Save plain text output to a file
+                bat 'sqlfluff lint .\\SQL > sqlfluff_report.txt'
             }
         }
 
         stage('Archive Report') {
             steps {
-                // Save the report in Jenkins UI
-                archiveArtifacts artifacts: 'sqlfluff_report.html', allowEmptyArchive: true
+                archiveArtifacts artifacts: 'sqlfluff_report.txt', allowEmptyArchive: true
             }
         }
     }
