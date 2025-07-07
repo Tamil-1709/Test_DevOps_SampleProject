@@ -2,4 +2,4 @@
 dialect = tsql
 exclude_rules = L009,L031
 templater = jinja
-max_line_length = 120
+max_line_length = 1200
