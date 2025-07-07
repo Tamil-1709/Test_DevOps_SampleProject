@@ -16,7 +16,7 @@ pipeline {
 
         stage('Lint SQL Files') {
             steps {
-                bat 'sqlfluff lint .\\SQL --dialect tsql'
+                bat 'sqlfluff lint .\\SQL'
             }
         }
     }
