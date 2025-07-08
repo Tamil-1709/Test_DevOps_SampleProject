@@ -52,7 +52,7 @@ BEGIN
                     WHERE LanguageName = (
                         SELECT [value]
                         FROM settings
-                        WHERE [name] = ''DefaultLanguage''
+                        WHERE [name] = '''DefaultLanguage''
                     );
                 END
 
