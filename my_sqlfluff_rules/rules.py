@@ -28,13 +28,15 @@ class Rule_MySqlFluffRules_L115(BaseRule):
     crawl_behaviour = SegmentSeekerCrawler({"keyword"})
  
     def _eval(self, context: RuleContext) -> Optional[LintResult]:
-        segment = context.segment
-        if isinstance(segment, KeywordSegment) and segment.raw.lower() == "cursor":
-            return LintResult(
-                anchor=segment,
-                description="Usage of CURSOR is discouraged. Consider a set-based approach"
-            )
-        return None
+    segment = context.segment
+    print("👉 Checking segment:", segment.raw)  # 👈 This helps you see if it's working
+    if isinstance(segment, KeywordSegment) and segment.raw.lower() == "cursor":
+        return LintResult(
+            anchor=segment,
+            description="Usage of CURSOR is discouraged. Consider a set-based approach"
+        )
+    return None
+
 class Rule_MySqlFluffRules_L118(BaseRule):
     """Disallow use of NOT IN due to potential NULL handling issues."""
  
