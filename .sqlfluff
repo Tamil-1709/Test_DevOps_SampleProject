@@ -1,5 +1,5 @@
 [sqlfluff]
 dialect = tsql
-exclude_rules = L009,L031
 templater = jinja
 max_line_length = 120
+plugins = my_sqlfluff_rules
