@@ -17,7 +17,7 @@ pipeline {
         stage('Lint SQL Files') {
             steps {
                 // Run sqlfluff and save result to file, but prevent pipeline failure
-                bat 'sqlfluff lint .\\SQL > sqlfluff_report.txt || exit 0'
+                bat 'set PYTHONPATH=%cd% && sqlfluff lint .\\SQL > sqlfluff_report.txt || exit 0'
             }
         }
     }
